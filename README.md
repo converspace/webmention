@@ -41,7 +41,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 `bobs.host` should check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
 
 ## Preventing Spam
-WebMention receivers SHOULD moderate webmentions and MUST link to source with `rel="nofollow"`.
+WebMention receivers SHOULD moderate webmentions and MUST link to `source` with `rel="nofollow"`.
 
 
 ## See also
