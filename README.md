@@ -51,6 +51,7 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 * [Trackback](http://archive.cweiske.de/trackback/trackback-1.2.html)
 * [RESTful Pingback](http://www.w3.org/wiki/Pingback)
 * [Semantic Pingback](http://aksw.org/projects/semanticpingback)
+* [TalkBack](http://elie.im/publication/reclaiming-the-blogosphere-talkBack-a-secure-linkBack-protocol-for-weblogs#.UIWq_k4geoM)
 
 ## Let's collaborate
 Feel free to [file an issue](https://github.com/converspace/webmention-specification/issues) if you have feedback/questions/suggestions.
