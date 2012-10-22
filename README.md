@@ -34,15 +34,21 @@ A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 >
 > source=http://alices.host/alice/post/42&\
 > target=http://bobs.host/bob/post/2
+
+
+< HTTP/1.1 202 Accepted
 ```
 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
 
+### Verification
 `bobs.host` should check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
 
-## Preventing Spam
-* WebMention receivers SHOULD moderate webmentions and MUST link to `source` with `rel="nofollow"`.
+## Preventing Spam and Abuse
+* The verification process SHOULD be queued to prevent DDOS attacks.
+* WebMention receivers SHOULD moderate webmentions and MUST link to `source` with `rel="nofollow"` to prevent SPAM.
 * Receivers could also periodically reverify that `source` links to `target`.
+
 
 
 ## See also
