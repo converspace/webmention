@@ -7,19 +7,18 @@ A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 
 ### Sender discovers Receiver Endpoint
 
+```http
+GET /bob/post/2 HTTP/1.1
+Host: bobs.host
 ```
-> GET /bob/post/2 HTTP/1.1
-> Host: bobs.host
+```http
+HTTP/1.1 200 OK
+Link: <http://bobs.host/webmention-endpoint>; rel="http://webmention.org/"
 
-
-< HTTP/1.1 200 OK
-< Link: <http://bobs.host/webmention-endpoint>; rel="http://webmention.org/"
-< ...
-<
-< <html>
-< ...
-< <link href="http://bobs.host/webmention-endpoint" rel="http://webmention.org/" />
-< ...
+<html>
+...
+<link href="http://bobs.host/webmention-endpoint" rel="http://webmention.org/" />
+...
 ```
 
 
@@ -27,16 +26,16 @@ A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 
 ### Sender Notifies Receiver
 
+```http
+POST /webmention-endpoint HTTP/1.1
+Host: bobs.host
+Content-Type: application/x-www-url-form-encoded
+
+source=http://alices.host/alice/post/42&\
+target=http://bobs.host/bob/post/2
 ```
-> POST /webmention-endpoint HTTP/1.1
-> Host: bobs.host
-> Content-Type: application/x-www-url-form-encoded
->
-> source=http://alices.host/alice/post/42&\
-> target=http://bobs.host/bob/post/2
-
-
-< HTTP/1.1 202 Accepted
+```http
+HTTP/1.1 202 Accepted
 ```
 
 _Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
