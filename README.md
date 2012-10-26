@@ -44,6 +44,8 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 ### Verification
 `bobs.host` should check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
 
+**Note**: Might looks for [rel="in-reply-to"](http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to)
+
 ## Preventing Spam and Abuse
 * The verification process SHOULD be queued to prevent DDOS attacks.
 * WebMention receivers SHOULD moderate webmentions and MUST link to `source` with `rel="nofollow"` to prevent SPAM.
