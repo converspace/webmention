@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebMention Specification by converspace</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="without-description">
+        <h1>WebMention Specification</h1>
+        <p></p>
+        <p class="view"><a href="https://github.com/converspace/webmention-specification">View the Project on GitHub <small>converspace/webmention-specification</small></a></p>
+        <ul>
+          <li><a href="https://github.com/converspace/webmention-specification/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/converspace/webmention-specification/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/converspace/webmention-specification">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>A modern alternative to <a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a>.</p>
+
+<h2>Protocol Flow</h2>
+
+<h3>Sender discovers Receiver Endpoint</h3>
+
+<div class="highlight"><pre><span class="nf">GET</span> <span class="nn">/bob/post/2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Link</span><span class="o">:</span> <span class="l">&lt;http://bobs.host/webmention-endpoint&gt;; rel="http://webmention.org/"</span>
+
+&lt;html&gt;
+...
+&lt;link href="http://bobs.host/webmention-endpoint" rel="http://webmention.org/" /&gt;
+...
+</pre></div>
+
+<h3>Sender Notifies Receiver</h3>
+
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-url-form-encoded</span>
+
+source=http://alices.host/alice/post/42&amp;\
+target=http://bobs.host/bob/post/2
+</pre></div>
+
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+</pre></div>
+
+<p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
+
+<h3>Verification</h3>
+
+<p><code>bobs.host</code> should check that <code>target</code> is a valid resource belonging to it and then perform a <code>GET</code> on <code>source</code> and confirm that it actually links to <code>target</code>.</p>
+
+<p><strong>Note</strong>: Might looks for <a href="http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to">rel="in-reply-to"</a></p>
+
+<h2>Preventing Spam and Abuse</h2>
+
+<ul>
+<li>The verification process SHOULD be queued to prevent DDOS attacks.</li>
+<li>WebMention receivers SHOULD moderate webmentions and MUST link to <code>source</code> with <code>rel="nofollow"</code> to prevent SPAM.</li>
+<li>Receivers could also periodically reverify that <code>source</code> links to <code>target</code>.</li>
+</ul><h2>See also</h2>
+
+<ul>
+<li><a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a></li>
+<li><a href="http://archive.cweiske.de/trackback/trackback-1.2.html">Trackback</a></li>
+<li><a href="http://www.w3.org/wiki/Pingback">RESTful Pingback</a></li>
+<li><a href="http://aksw.org/projects/semanticpingback">Semantic Pingback</a></li>
+<li><a href="http://elie.im/publication/reclaiming-the-blogosphere-talkBack-a-secure-linkBack-protocol-for-weblogs#.UIWq_k4geoM">TalkBack</a></li>
+</ul><h2>Let's collaborate</h2>
+
+<p>Feel free to <a href="https://github.com/converspace/webmention-specification/issues">file an issue</a> if you have feedback/questions/suggestions.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/converspace">converspace</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
