@@ -1,4 +1,4 @@
-# WebMention Specification
+# WebMention
 
 A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 
