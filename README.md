@@ -50,9 +50,9 @@ _Note: the "\" character is used here to indicate line wrapping in the request c
 
 ### Success
 
-If the WebMention request was successful, the server MUST reply with an `HTTP 202 Accepted` response code. The body of the response is left undefined, but is recommended to return a message indicating the pingback was successful and should respect the content-type of the `Accept` header. It is also valid to not send any body in the response.
+If the WebMention request was successful, the server MUST reply with an `HTTP 202 Accepted` response code. The body of the response is left undefined, but is recommended to return a message indicating the pingback was successful and should respect the content-type of the `Accept` header. If no `Accept` header is present, an HTML success body may be returned. It is also valid to not send any body in the response.
 
-For example, some typical responses may look like the following:
+For example, typical responses may look like the following:
 
 #### HTML
 
@@ -60,13 +60,13 @@ For example, some typical responses may look like the following:
 POST /webmention-endpoint HTTP/1.1
 Host: bobs.host
 Content-Type: application/x-www-url-form-encoded
-Accept: text/html
 
 source=http://alices.host/alice/post/42&
 target=http://bobs.host/bob/post/2
 ```
 ```http
 HTTP/1.1 202 Accepted
+Content-Type: text/html
 
 <!DOCTYPE html>
 <html>
@@ -92,6 +92,7 @@ target=http://bobs.host/bob/post/2
 ```
 ```http
 HTTP/1.1 202 Accepted
+Content-Type: application/json
 
 {
   "result": "WebMention was successful"
@@ -111,7 +112,35 @@ All errors below MUST be returned with an `HTTP 400 Bad Request` response code.
 * `no_link_found`: The source URI does not contain a link to the target URI.
 * `already_registered`: The specified WebMention has already been registered.
 
-The format of the error body should respect the content-type in the `Accept` header. If no `Accept` header is present, it is acceptable to return a JSON body.
+The format of the error body should respect the content-type in the `Accept` header. If no `Accept` header is present, it is acceptable to return an HTML body with a description of the error.
+
+#### HTML
+
+```http
+POST /webmention-endpoint HTTP/1.1
+Host: bobs.host
+Content-Type: application/x-www-url-form-encoded
+
+source=http://alices.host/alice/post/42&
+target=http://bobs.host/bob/post/2
+```
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebMention Error</title>
+  </head>
+  <body>
+    <h2>no_link_found</h2>
+    <p>The source URI does not contain a link to the target URI</p>
+  </body>
+</html>
+```
+
+#### JSON
 
 ```http
 POST /webmention-endpoint HTTP/1.1
