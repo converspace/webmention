@@ -22,8 +22,6 @@ Link: <http://bobs.host/webmention-endpoint>; rel="http://webmention.org/"
 ```
 
 
-
-
 ### Sender Notifies Receiver
 
 ```http
@@ -31,19 +29,17 @@ POST /webmention-endpoint HTTP/1.1
 Host: bobs.host
 Content-Type: application/x-www-url-form-encoded
 
-source=http://alices.host/alice/post/42&\
+source=http://alices.host/alice/post/42&
 target=http://bobs.host/bob/post/2
 ```
 ```http
 HTTP/1.1 202 Accepted
 ```
 
-_Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself._
-
 ### Verification
 `bobs.host` should check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
 
-**Note**: Might looks for [rel="in-reply-to"](http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to)
+**Note**: Might look for [rel="in-reply-to"](http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to), or just the link itself somewhere on the page.
 
 
 ## Response
@@ -178,4 +174,4 @@ HTTP/1.1 400 Bad Request
 * [TalkBack](http://elie.im/publication/reclaiming-the-blogosphere-talkBack-a-secure-linkBack-protocol-for-weblogs#.UIWq_k4geoM)
 
 ## Let's collaborate
-Feel free to [file an issue](https://github.com/converspace/webmention-specification/issues) if you have feedback/questions/suggestions.
+Feel free to [file an issue](https://github.com/converspace/webmention/issues) if you have feedback/questions/suggestions.
