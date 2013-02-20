@@ -37,10 +37,9 @@ HTTP/1.1 202 Accepted
 ```
 
 ### Verification
-`bobs.host` should check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
+`bobs.host` SHOULD check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
 
 **Note**: Might look for [rel="in-reply-to"](http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to), or just the link itself somewhere on the page.
-
 
 ## Response
 
@@ -160,8 +159,8 @@ HTTP/1.1 400 Bad Request
 
 ## Preventing Spam and Abuse
 * The verification process SHOULD be queued to prevent DDOS attacks.
-* WebMention receivers SHOULD moderate webmentions and MUST link to `source` with `rel="nofollow"` to prevent SPAM.
-* Receivers could also periodically reverify that `source` links to `target`.
+* WebMention receivers SHOULD moderate WebMentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
+* Receivers MAY periodically re-verify that `source` links to `target`, and remove visible links if source no longer links to target.
 
 
 
