@@ -52,27 +52,139 @@
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-url-form-encoded</span>
 
-source=http://alices.host/alice/post/42&amp;\
+source=http://alices.host/alice/post/42&amp;
 target=http://bobs.host/bob/post/2
 </pre></div>
 
 <div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
 </pre></div>
 
-<p><em>Note: the "\" character is used here to indicate line wrapping in the request content and is not part of the content itself.</em></p>
-
 <h3>Verification</h3>
 
-<p><code>bobs.host</code> should check that <code>target</code> is a valid resource belonging to it and then perform a <code>GET</code> on <code>source</code> and confirm that it actually links to <code>target</code>.</p>
+<p><code>bobs.host</code> SHOULD check that <code>target</code> is a valid resource belonging to it and then perform a <code>GET</code> on <code>source</code> and confirm that it actually links to <code>target</code>.</p>
 
-<p><strong>Note</strong>: Might looks for <a href="http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to">rel="in-reply-to"</a></p>
+<p><strong>Note</strong>: Might look for <a href="http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to">rel="in-reply-to"</a>, or just the link itself somewhere on the page.</p>
+
+<h2>Response</h2>
+
+<h3>Success</h3>
+
+<p>If the WebMention request was successful, the server MUST reply with an <code>HTTP 202 Accepted</code> response code. The body of the response is left undefined, but is recommended to return a message indicating the pingback was successful and should respect the content-type of the <code>Accept</code> header. If no <code>Accept</code> header is present, an HTML success body may be returned. It is also valid to not send any body in the response.</p>
+
+<p>For example, typical responses may look like the following:</p>
+
+<h4>HTML</h4>
+
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-url-form-encoded</span>
+
+source=http://alices.host/alice/post/42&amp;
+target=http://bobs.host/bob/post/2
+</pre></div>
+
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
+
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>WebMention<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;p&gt;</span>WebMention was successful<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<h4>JSON</h4>
+
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-url-form-encoded</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+
+source=http://alices.host/alice/post/42&amp;
+target=http://bobs.host/bob/post/2
+</pre></div>
+
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">"result"</span><span class="p">:</span> <span class="s2">"WebMention was successful"</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>Errors</h3>
+
+<p>In addition to the standard HTTP status codes that may be returned for things like malformed requests, WebMention defines several error cases that must be handled.</p>
+
+<p>All errors below MUST be returned with an <code>HTTP 400 Bad Request</code> response code.</p>
+
+<ul>
+<li>
+<code>source_not_found</code>: The source URI does not exist.</li>
+<li>
+<code>target_not_found</code>: The target URI does not exist. This must only be used when an external GET on the target URI would result in an <code>HTTP 404</code> response.</li>
+<li>
+<code>target_not_supported</code>: The specified target URI is not a WebMention-enabled resource. For example, on a blog, individual post pages may be WebMention-enabled but the home page may not.</li>
+<li>
+<code>no_link_found</code>: The source URI does not contain a link to the target URI.</li>
+<li>
+<code>already_registered</code>: The specified WebMention has already been registered.</li>
+</ul><p>The format of the error body should respect the content-type in the <code>Accept</code> header. If no <code>Accept</code> header is present, it is acceptable to return an HTML body with a description of the error.</p>
+
+<h4>HTML</h4>
+
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-url-form-encoded</span>
+
+source=http://alices.host/alice/post/42&amp;
+target=http://bobs.host/bob/post/2
+</pre></div>
+
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="ne">Bad Request</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
+
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>WebMention Error<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>no_link_found<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;p&gt;</span>The source URI does not contain a link to the target URI<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<h4>JSON</h4>
+
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-url-form-encoded</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+
+source=http://alices.host/alice/post/42&amp;
+target=http://bobs.host/bob/post/2
+</pre></div>
+
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="ne">Bad Request</span>
+
+{
+  "error": "no_link_found",
+  "error_description": "The source URI does not contain a link to the target URI"
+}
+</pre></div>
 
 <h2>Preventing Spam and Abuse</h2>
 
 <ul>
 <li>The verification process SHOULD be queued to prevent DDOS attacks.</li>
-<li>WebMention receivers SHOULD moderate webmentions and MUST link to <code>source</code> with <code>rel="nofollow"</code> to prevent SPAM.</li>
-<li>Receivers could also periodically reverify that <code>source</code> links to <code>target</code>.</li>
+<li>WebMention receivers SHOULD moderate WebMentions, and if a link is displayed back to the source, SHOULD link to <code>source</code> with <code>rel="nofollow"</code> to prevent spam.</li>
+<li>Receivers MAY periodically re-verify that <code>source</code> links to <code>target</code>, and remove visible links if source no longer links to target.</li>
 </ul><h2>See also</h2>
 
 <ul>
@@ -83,7 +195,7 @@ target=http://bobs.host/bob/post/2
 <li><a href="http://elie.im/publication/reclaiming-the-blogosphere-talkBack-a-secure-linkBack-protocol-for-weblogs#.UIWq_k4geoM">TalkBack</a></li>
 </ul><h2>Let's collaborate</h2>
 
-<p>Feel free to <a href="https://github.com/converspace/webmention-specification/issues">file an issue</a> if you have feedback/questions/suggestions.</p>
+<p>Feel free to <a href="https://github.com/converspace/webmention/issues">file an issue</a> if you have feedback/questions/suggestions.</p>
       </section>
     </div>
     <footer>
