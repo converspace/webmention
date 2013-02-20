@@ -156,7 +156,6 @@ HTTP/1.1 400 Bad Request
 ```
 
 
-
 ## Preventing Spam and Abuse
 * The verification process SHOULD be queued to prevent DDOS attacks.
 * WebMention receivers SHOULD moderate WebMentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
