@@ -75,9 +75,9 @@ At this point the receiver can choose to publish information about this webmenti
 
 ##### Sender Error
 
-If the webmention was not successful because of something the `sender` did, you SHOULD return a `400 Bad Request` status code and MAY include a simple plain text description of the error in the response body.
+If the webmention was not successful because of something the sender did, you SHOULD return a `400 Bad Request` status code and MAY include a simple plain text description of the error in the response body.
 
-Possible `sender` related errors (from the [Pingback](http://www.hixie.ch/specs/pingback/pingback) specification):
+Possible sender related errors (from the [Pingback](http://www.hixie.ch/specs/pingback/pingback) specification):
 * Source URL not found.
 * Specified target URL not found.
 * Source URL does not contain a link to the target URL.
@@ -126,7 +126,7 @@ If receiver had received a webmention in the past with the same `source` and `ta
 * The verification process SHOULD be queued and processed asynchronously to prevent DDOS attacks.
 * Receivers SHOULD moderate Webmentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
 * Receivers MAY periodically re-verify webmentions and [update them](#updating-existing-webmentions).
-* If a `receiver` chooses to publish data it picks up from `source`, it should ensure that the data is encoded and/or filtered to prevent XSS and CSRF attacks.
+* If a receiver chooses to publish data it picks up from `source`, it should ensure that the data is encoded and/or filtered to prevent XSS and CSRF attacks.
 
 
 # Implementations
