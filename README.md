@@ -122,7 +122,7 @@ If receiver had received a webmention in the past with the same `source` and `ta
 
 
 
-## Preventing Spam/Abuse and Security considerations
+## Preventing Abuse
 * The verification process SHOULD be queued and processed asynchronously to prevent DDOS attacks.
 * Receivers SHOULD moderate Webmentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
 * Receivers MAY periodically re-verify webmentions and [update them](#updating-existing-webmentions).
