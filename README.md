@@ -1,4 +1,4 @@
-# Webmention 0.2
+# Webmention
 
 A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 
