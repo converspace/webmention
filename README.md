@@ -5,10 +5,23 @@ A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 Webmention is a simple way to automatically notify any URL when you link to it on your site. From the receivers perpective, it's a way to request notification when other sites link to it.
 
 
-## Editors
-Sandeep Shetty (sandeep.shetty@gmail.com)
+### Versions
 
-__NOTE__: All contributions to this specification are released into the public domain.
+#### Latest Version:
+http://webmention.org
+
+#### Previous Versions:
+* [version 0.1](https://github.com/converspace/webmention/blob/c9ab07947d00656237d9a5e626c78148da7166eb/README.md)
+
+
+### Editors
+* Sandeep Shetty (sandeep.shetty@gmail.com)
+
+### Contributors
+* ...
+
+### Copyright
+All contributions to this specification are released into the public domain.
 
 
 ## Introduction
@@ -56,7 +69,7 @@ HTTP/1.1 202 Accepted
 http://alice.host/webmentions/222
 ```
 
-`202 Accepted` is the recommended status code to return indicating that the request SHOULD be queued and processed asynchronously to prevent __DDOS attacks__. The response body SHOULD include a URL that can be used to monitor the status of the request.
+`202 Accepted` is the recommended status code to return indicating that the request SHOULD be queued and processed asynchronously to prevent __DOS attacks__. The response body SHOULD include a URL that can be used to monitor the status of the request.
 
 If you choose to process the request and perform the [verification](#verification) step synchronously, you can respond with a `200 OK` status on success.
 
@@ -131,6 +144,10 @@ If receiver had received a webmention in the past with the same `source` and `ta
 
 # Implementations
 ...
+
+# TODO
+* Prevention of DDOS 
+  * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDOS on Alice's site.
 
 ## See also
 
