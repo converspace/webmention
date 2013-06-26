@@ -6,7 +6,7 @@ A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 ## Editors
 * Sandeep Shetty (sandeep.shetty@gmail.com)
 
-## Contritbutors
+## Contributors
 * Aaron Parecki (aaron@parecki.com)
 
 __NOTE__: All contributions to this specification are released into the public domain.
