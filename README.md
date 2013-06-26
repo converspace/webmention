@@ -1,4 +1,4 @@
-# Webmention
+# Webmention 0.2
 
 A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 
@@ -118,7 +118,7 @@ Cannot processes webmentions at this time. Please try again later.
 #### Updating existing webmentions
 If receiver had received a webmention in the past with the same `source` and `target` then,
 * If both the [verification](#verification) steps are successful, it SHOULD update any existing data it picked from `source` for the existing webmention.
-* If it failed on step 2, that is, it got a 404 while performing a `GET` request on `source` or does not find a link to `target`, it SHOULD delete the existing webmention.
+* If it received a 410 or 404 response on step 2 (performing a `GET` request on `source`) or does not find a link to `target` on `source`, it SHOULD delete the existing webmention.
 
 
 
