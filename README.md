@@ -3,13 +3,20 @@
 A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
 
 
-## Editors
+### Versions
+
+#### Latest Version:
+http://webmention.org
+
+
+### Editors
 * Sandeep Shetty (sandeep.shetty@gmail.com)
 
-## Contributors
+### Contributors
 * Aaron Parecki (aaron@parecki.com)
 
-__NOTE__: All contributions to this specification are released into the public domain.
+### Copyright
+All contributions to this specification are released into the public domain.
 
 
 ## Protocol Flow
