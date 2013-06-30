@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WebMention by converspace</title>
+    <title>WebMention 0.1 by converspace</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -17,7 +17,7 @@
   <body>
     <div class="wrapper">
       <header class="without-description">
-        <h1>WebMention</h1>
+        <h1>WebMention 0.1</h1>
         <p></p>
         <p class="view"><a href="https://github.com/converspace/webmention">View the Project on GitHub <small>converspace/webmention</small></a></p>
         <ul>
@@ -29,9 +29,34 @@
       <section>
         <p>A modern alternative to <a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a>.</p>
 
-<h2>Protocol Flow</h2>
+<h3>
+<a name="versions" class="anchor" href="#versions"><span class="octicon octicon-link"></span></a>Versions</h3>
 
-<h3>Sender discovers Receiver Endpoint</h3>
+<h4>
+<a name="latest-version" class="anchor" href="#latest-version"><span class="octicon octicon-link"></span></a>Latest Version:</h4>
+
+<p><a href="http://webmention.org">http://webmention.org</a></p>
+
+<h3>
+<a name="editors" class="anchor" href="#editors"><span class="octicon octicon-link"></span></a>Editors</h3>
+
+<ul>
+<li>Sandeep Shetty (<a href="mailto:sandeep.shetty@gmail.com">sandeep.shetty@gmail.com</a>)</li>
+</ul><h3>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h3>
+
+<ul>
+<li>Aaron Parecki (<a href="mailto:aaron@parecki.com">aaron@parecki.com</a>)</li>
+</ul><h3>
+<a name="copyright" class="anchor" href="#copyright"><span class="octicon octicon-link"></span></a>Copyright</h3>
+
+<p>All contributions to this specification are released into the public domain.</p>
+
+<h2>
+<a name="protocol-flow" class="anchor" href="#protocol-flow"><span class="octicon octicon-link"></span></a>Protocol Flow</h2>
+
+<h3>
+<a name="sender-discovers-receiver-endpoint" class="anchor" href="#sender-discovers-receiver-endpoint"><span class="octicon octicon-link"></span></a>Sender discovers Receiver Endpoint</h3>
 
 <div class="highlight"><pre><span class="nf">GET</span> <span class="nn">/bob/post/2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
@@ -46,7 +71,8 @@
 ...
 </pre></div>
 
-<h3>Sender Notifies Receiver</h3>
+<h3>
+<a name="sender-notifies-receiver" class="anchor" href="#sender-notifies-receiver"><span class="octicon octicon-link"></span></a>Sender Notifies Receiver</h3>
 
 <div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
@@ -59,21 +85,25 @@ target=http://bobs.host/bob/post/2
 <div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
 </pre></div>
 
-<h3>Verification</h3>
+<h3>
+<a name="verification" class="anchor" href="#verification"><span class="octicon octicon-link"></span></a>Verification</h3>
 
 <p><code>bobs.host</code> SHOULD check that <code>target</code> is a valid resource belonging to it and then perform a <code>GET</code> on <code>source</code> and confirm that it actually links to <code>target</code>.</p>
 
 <p><strong>Note</strong>: Might look for <a href="http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to">rel="in-reply-to"</a>, or just the link itself somewhere on the page.</p>
 
-<h2>Response</h2>
+<h2>
+<a name="response" class="anchor" href="#response"><span class="octicon octicon-link"></span></a>Response</h2>
 
-<h3>Success</h3>
+<h3>
+<a name="success" class="anchor" href="#success"><span class="octicon octicon-link"></span></a>Success</h3>
 
 <p>If the WebMention request was successful, the server MUST reply with an <code>HTTP 202 Accepted</code> response code. The body of the response is left undefined, but is recommended to return a message indicating the pingback was successful and should respect the content-type of the <code>Accept</code> header. If no <code>Accept</code> header is present, an HTML success body may be returned. It is also valid to not send any body in the response.</p>
 
 <p>For example, typical responses may look like the following:</p>
 
-<h4>HTML</h4>
+<h4>
+<a name="html" class="anchor" href="#html"><span class="octicon octicon-link"></span></a>HTML</h4>
 
 <div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
@@ -97,7 +127,8 @@ target=http://bobs.host/bob/post/2
 <span class="nt">&lt;/html&gt;</span>
 </pre></div>
 
-<h4>JSON</h4>
+<h4>
+<a name="json" class="anchor" href="#json"><span class="octicon octicon-link"></span></a>JSON</h4>
 
 <div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
@@ -116,7 +147,8 @@ target=http://bobs.host/bob/post/2
 <span class="p">}</span>
 </pre></div>
 
-<h3>Errors</h3>
+<h3>
+<a name="errors" class="anchor" href="#errors"><span class="octicon octicon-link"></span></a>Errors</h3>
 
 <p>In addition to the standard HTTP status codes that may be returned for things like malformed requests, WebMention defines several error cases that must be handled.</p>
 
@@ -135,7 +167,8 @@ target=http://bobs.host/bob/post/2
 <code>already_registered</code>: The specified WebMention has already been registered.</li>
 </ul><p>The format of the error body should respect the content-type in the <code>Accept</code> header. If no <code>Accept</code> header is present, it is acceptable to return an HTML body with a description of the error.</p>
 
-<h4>HTML</h4>
+<h4>
+<a name="html-1" class="anchor" href="#html-1"><span class="octicon octicon-link"></span></a>HTML</h4>
 
 <div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
@@ -160,7 +193,8 @@ target=http://bobs.host/bob/post/2
 <span class="nt">&lt;/html&gt;</span>
 </pre></div>
 
-<h4>JSON</h4>
+<h4>
+<a name="json-1" class="anchor" href="#json-1"><span class="octicon octicon-link"></span></a>JSON</h4>
 
 <div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/webmention-endpoint</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bobs.host</span>
@@ -179,13 +213,15 @@ target=http://bobs.host/bob/post/2
 }
 </pre></div>
 
-<h2>Preventing Spam and Abuse</h2>
+<h2>
+<a name="preventing-spam-and-abuse" class="anchor" href="#preventing-spam-and-abuse"><span class="octicon octicon-link"></span></a>Preventing Spam and Abuse</h2>
 
 <ul>
 <li>The verification process SHOULD be queued to prevent DDOS attacks.</li>
 <li>WebMention receivers SHOULD moderate WebMentions, and if a link is displayed back to the source, SHOULD link to <code>source</code> with <code>rel="nofollow"</code> to prevent spam.</li>
 <li>Receivers MAY periodically re-verify that <code>source</code> links to <code>target</code>, and remove visible links if source no longer links to target.</li>
-</ul><h2>See also</h2>
+</ul><h2>
+<a name="see-also" class="anchor" href="#see-also"><span class="octicon octicon-link"></span></a>See also</h2>
 
 <ul>
 <li><a href="http://www.hixie.ch/specs/pingback/pingback">Pingback</a></li>
@@ -193,7 +229,8 @@ target=http://bobs.host/bob/post/2
 <li><a href="http://www.w3.org/wiki/Pingback">RESTful Pingback</a></li>
 <li><a href="http://aksw.org/projects/semanticpingback">Semantic Pingback</a></li>
 <li><a href="http://elie.im/publication/reclaiming-the-blogosphere-talkBack-a-secure-linkBack-protocol-for-weblogs#.UIWq_k4geoM">TalkBack</a></li>
-</ul><h2>Let's collaborate</h2>
+</ul><h2>
+<a name="lets-collaborate" class="anchor" href="#lets-collaborate"><span class="octicon octicon-link"></span></a>Let's collaborate</h2>
 
 <p>Feel free to <a href="https://github.com/converspace/webmention/issues">file an issue</a> if you have feedback/questions/suggestions.</p>
       </section>
