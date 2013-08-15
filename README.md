@@ -18,6 +18,7 @@ http://webmention.org
 * Sandeep Shetty (sandeep.shetty@gmail.com)
 
 ### Contributors
+* Aaron Parecki (aaron@parecki.com)
 * ...
 
 ### Copyright
@@ -44,11 +45,11 @@ Host: alice.host
 ```
 ```http
 HTTP/1.1 200 OK
-Link: <http://alice.host/webmention-endpoint>; rel="http://webmention.org/"
+Link: <http://alice.host/webmention-endpoint>; rel="webmention"
 
 <html>
 ...
-<link href="http://alice.host/webmention-endpoint" rel="http://webmention.org/" />
+<link href="http://alice.host/webmention-endpoint" rel="webmention" />
 ...
 ```
 
