@@ -150,7 +150,7 @@ See [IMPLEMENTATIONS](IMPLEMENTATIONS.md)
 * Prevention of DDoS 
   * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDoS on Alice's site.
      * See [this discussion about Refback](http://krijnhoetmer.nl/irc-logs/whatwg/20111122#l-387). tl;dr: Hixie says "it's already pretty trivial to cause a server to get a lot of GETs, that's not a particularly interesting security issue imho".
-
+* backcompat with v0.1 by also supporting rel="http://webmention.org"?
 ## See also
 
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
