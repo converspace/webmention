@@ -137,18 +137,19 @@ If receiver had received a webmention in the past with the same `source` and `ta
 
 
 ## Preventing Abuse
-* The verification process SHOULD be queued and processed asynchronously to prevent DDOS attacks.
+* The verification process SHOULD be queued and processed asynchronously to prevent DDoS attacks.
 * Receivers SHOULD moderate Webmentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
 * Receivers MAY periodically re-verify webmentions and [update them](#updating-existing-webmentions).
 * If a receiver chooses to publish data it picks up from `source`, it should ensure that the data is encoded and/or filtered to prevent XSS and CSRF attacks.
 
 
 # Implementations
-...
+See [IMPLEMENTATIONS](IMPLEMENTATIONS.md)
 
 # TODO
-* Prevention of DDOS 
-  * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDOS on Alice's site.
+* Prevention of DDoS 
+  * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDoS on Alice's site.
+     * See [this discussion about Refback](http://krijnhoetmer.nl/irc-logs/whatwg/20111122#l-387). tl;dr: Hixie says "it's already pretty trivial to cause a server to get a lot of GETs, that's not a particularly interesting security issue imho".
 
 ## See also
 
