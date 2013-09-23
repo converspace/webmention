@@ -29,11 +29,11 @@ Host: bobs.host
 ```
 ```http
 HTTP/1.1 200 OK
-Link: <http://bobs.host/webmention-endpoint>; rel="http://webmention.org/"
+Link: <http://bobs.host/webmention-endpoint>; rel="webmention"
 
 <html>
 ...
-<link href="http://bobs.host/webmention-endpoint" rel="http://webmention.org/" />
+<link href="http://bobs.host/webmention-endpoint" rel="webmention" />
 ...
 ```
 
