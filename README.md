@@ -22,8 +22,13 @@ http://webmention.org
 * ...
 
 ### Copyright
-All contributions to this specification are released into the public domain.
 
+<a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">
+<img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png">
+</a> To the extent possible under law, the editors have waived 
+all copyright and related or neighboring rights to this work. 
+In addition, as of 2013-09-27, the editors have made 
+this specification available under the <a rel="license" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>, which is available at <http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0>.
 
 ## Introduction
 
