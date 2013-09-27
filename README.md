@@ -1,8 +1,8 @@
 # Webmention 0.2
 
-A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
-
 Webmention is a simple way to automatically notify any URL when you link to it on your site. From the receivers perpective, it's a way to request notification when other sites link to it.
+
+It’s a modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback) and other forms of [Linkback](http://en.wikipedia.org/wiki/Linkback).
 
 ### Versions
 
