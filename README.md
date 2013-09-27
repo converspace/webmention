@@ -1,9 +1,8 @@
 # Webmention 0.2
 
-A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
-
 Webmention is a simple way to automatically notify any URL when you link to it on your site. From the receivers perpective, it's a way to request notification when other sites link to it.
 
+It’s a modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback) and other forms of [Linkback](http://en.wikipedia.org/wiki/Linkback).
 
 ### Versions
 
@@ -15,15 +14,21 @@ http://webmention.org
 
 
 ### Editors
-* Sandeep Shetty (sandeep.shetty@gmail.com)
+* Sandeep Shetty (sandeep.io sandeep.shetty@gmail.com)
 
 ### Contributors
-* Aaron Parecki (aaron@parecki.com)
+* Aaron Parecki (aaronparecki.com aaron@parecki.com)
+* Barnaby Walters (waterpigs.co.uk)
 * ...
 
 ### Copyright
-All contributions to this specification are released into the public domain.
 
+<a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">
+<img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png">
+</a> To the extent possible under law, the editors have waived 
+all copyright and related or neighboring rights to this work. 
+In addition, as of 2013-09-27, the editors have made 
+this specification available under the <a rel="license" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>, which is available at <http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0>.
 
 ## Introduction
 
@@ -135,7 +140,6 @@ If receiver had received a webmention in the past with the same `source` and `ta
 * If it received a 410 or 404 response on step 2 (performing a `GET` request on `source`) or does not find a link to `target` on `source`, it SHOULD delete the existing webmention.
 
 
-
 ## Preventing Abuse
 * The verification process SHOULD be queued and processed asynchronously to prevent DDoS attacks.
 * Receivers SHOULD moderate Webmentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
@@ -149,8 +153,9 @@ See [IMPLEMENTATIONS](IMPLEMENTATIONS.md)
 # TODO
 * Prevention of DDoS 
   * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDoS on Alice's site.
-     * See [this discussion about Refback](http://krijnhoetmer.nl/irc-logs/whatwg/20111122#l-387). tl;dr: Hixie says "it's already pretty trivial to cause a server to get a lot of GETs, that's not a particularly interesting security issue imho".
+    * See [this discussion about Refback](http://krijnhoetmer.nl/irc-logs/whatwg/20111122#l-387). tl;dr: Hixie says "it's already pretty trivial to cause a server to get a lot of GETs, that's not a particularly interesting security issue imho".
 * backcompat with v0.1 by also supporting rel="http://webmention.org"?
+  * 
 ## See also
 
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
