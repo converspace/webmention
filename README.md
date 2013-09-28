@@ -10,7 +10,7 @@ It’s a modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pin
 http://webmention.org
 
 #### Draft Versions:
-* [version 0.2](https://github.com/converspace/webmention/blob/c9ab07947d00656237d9a5e626c78148da7166eb/README.md)
+* [version 0.2](https://github.com/converspace/webmention/blob/gh-pages/0.2.md)
 
 ### Editors
 * Sandeep Shetty (sandeep.io sandeep.shetty@gmail.com)
