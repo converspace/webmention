@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>{% if page.title %}{{ page.title }} - {{ site.name }}{% else %}{{ site.name }}{% if page.version %} {{ page.version }}{% if page.draft == true %} Draft{% endif %}{% endif %}{% if page.index == true %} {{ site.latest }}{% endif %} by {{ site.org }}{% endif %}</title>
+
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
+    <script src="/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="without-description">
+        <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}{% if page.version %} {{ page.version }}{% if page.draft == true %} Draft{% endif %}{% else %}{% if page.index == true %} {{ site.latest }}{% endif %}{% endif %}</h1>
+        <p></p>
+        <p class="view"><a href="{{ site.repo_url }}">View the Project on GitHub <small>{{ site.org }}/{{ site.repo }}</small></a></p>
+        <ul>
+          <li><a href="{{ site.repo_url }}">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+          {{ content }}
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="{{ site.org_url }}">{{ site.org }}</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+  </body>
+</html>
