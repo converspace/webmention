@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{% if page.title %}{{ page.title }} - {{ site.name }}{% else %}{{ site.name }} {% if page.version %} {{ page.version }}{% if page.draft == true %} Draft{% endif %}{% endif %}{% if page.index == true %} {{ site.latest }}{% endif %} by {{ site.org }}{% endif %}</title>
+    <title>{% if page.title %}{{ page.title }} - {{ site.name }}{% else %}{{ site.name }}{% if page.version %} {{ page.version }}{% if page.draft == true %} Draft{% endif %}{% endif %}{% if page.index == true %} {{ site.latest }}{% endif %} by {{ site.org }}{% endif %}</title>
 
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
@@ -25,9 +25,7 @@
         </ul>
       </header>
       <section>
-          
           {{ content }}
-          
       </section>
     </div>
     <footer>
