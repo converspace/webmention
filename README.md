@@ -14,21 +14,18 @@ http://webmention.org
 
 
 ### Editors
-* Sandeep Shetty (sandeep.io sandeep.shetty@gmail.com)
+* [Sandeep Shetty](http://sandeep.io/) (sandeep.shetty@gmail.com)
 
 ### Contributors
-* Aaron Parecki (aaronparecki.com aaron@parecki.com)
-* Barnaby Walters (waterpigs.co.uk)
-* ...
+* [Aaron Parecki](http://aaronparecki.com/) (aaron@parecki.com)
+* [Barnaby Walters](http://waterpigs.co.uk/)
 
-### Copyright
 
-<a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">
-<img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png">
-</a> To the extent possible under law, the editors have waived 
-all copyright and related or neighboring rights to this work. 
-In addition, as of 2013-09-27, the editors have made 
-this specification available under the <a rel="license" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>, which is available at <http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0>.
+### License
+
+[CC0](http://creativecommons.org/choose/zero/)+[OWFa](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0)
+
+<a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors and contributors have waived all copyright and related or neighboring rights to this work. In addition, as of 27 September 2013, the editors and contributors have made this specification available under the <a rel="license" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.
 
 ## Introduction
 
