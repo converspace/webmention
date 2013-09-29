@@ -75,7 +75,7 @@ HTTP/1.1 202 Accepted
 http://alice.host/webmentions/222
 ```
 
-`202 Accepted` is the recommended status code to return indicating that the request SHOULD be queued and processed asynchronously to prevent __DOS attacks__. The response body SHOULD include a URL that can be used to monitor the status of the request.
+`202 Accepted` is the recommended status code to return indicating that the request SHOULD be queued and processed asynchronously to prevent __DoS attacks__. The response body SHOULD include a URL that can be used to monitor the status of the request.
 
 If you choose to process the request and perform the [verification](#verification) step synchronously, you can respond with a `200 OK` status on success.
 
@@ -155,7 +155,8 @@ See [IMPLEMENTATIONS](IMPLEMENTATIONS.md)
   * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDoS on Alice's site.
     * See [this discussion about Refback](http://krijnhoetmer.nl/irc-logs/whatwg/20111122#l-387). tl;dr: Hixie says "it's already pretty trivial to cause a server to get a lot of GETs, that's not a particularly interesting security issue imho".
 * backcompat with v0.1 by also supporting rel="http://webmention.org"?
-  * 
+ 
+  
 ## See also
 
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
