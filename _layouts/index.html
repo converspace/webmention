@@ -1,0 +1,8 @@
+---
+layout: default
+---
+{% for node in site.pages %}
+{% if node.version == site.latest %}
+{{ node.content }}
+{% endif %}
+{% endfor %}

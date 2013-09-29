@@ -1,0 +1,24 @@
+url: webmention.org
+permalink: pretty
+markdown: rdiscount
+safe: true
+lsi: false
+pygments: true
+port: 4000
+future: false
+exclude: [Gemfile, Gemfile.lock, README.md]
+
+source:      .
+destination: ./_site
+plugins:     ./_plugins
+
+name: Webmention
+latest: 0.1
+repo_url: https://github.com/converspace/webmention
+repo: webmention
+org: converspace
+org_url: https://github.com/converspace/
+
+rdiscount:
+  extensions: []
+  
