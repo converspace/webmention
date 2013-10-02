@@ -91,7 +91,7 @@ At this point the receiver can choose to publish information about this webmenti
 
 ##### Sender Error
 
-If the webmention was not successful because of something the sender did, you SHOULD return a `400 Bad Request` status code and MAY include a simple plain text description of the error in the response body.
+If the webmention was not successful because of something the sender did, you SHOULD return a `400 Bad Request` status code and MAY include a description of the error in the response body.
 
 Possible sender related errors (from the [Pingback](http://www.hixie.ch/specs/pingback/pingback) specification):
 * Source URL not found.
@@ -99,37 +99,10 @@ Possible sender related errors (from the [Pingback](http://www.hixie.ch/specs/pi
 * Source URL does not contain a link to the target URL.
 * Specified target URL does not accept webmentions.
 
-```http
-POST /webmention-endpoint HTTP/1.1
-Host: alice.host
-Content-Type: application/x-www-url-form-encoded
-
-source=http://bob.host/post-by-bob&
-target=http://alice.host/post-by-alice
-```
-```http
-HTTP/1.1 400 Bad Request
-
-Source URL does not contain a link to the target URL.
-```
-
 ##### Receiver Error
 
-If the webmention was not successful because of an error on the receivers server, it SHOULD return a `500 Internal Server Error` status code and MAY include a simple plain text description of the error in the response body.
+If the webmention was not successful because of an error on the receivers server, it SHOULD return a `500 Internal Server Error` status code and MAY include a description of the error in the response body.
 
-```http
-POST /webmention-endpoint HTTP/1.1
-Host: alice.host
-Content-Type: application/x-www-url-form-encoded
-
-source=http://bob.host/post-by-bob&
-target=http://alice.host/post-by-alice
-```
-```http
-HTTP/1.1 500 Internal Server Error
-
-Cannot processes webmentions at this time. Please try again later.
-```
 
 #### Updating existing webmentions
 If receiver had received a webmention in the past with the same `source` and `target` then,
