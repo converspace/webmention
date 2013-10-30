@@ -1,4 +1,4 @@
-# Webmention 0.2
+# Webmention 0.2 (RC1)
 
 Webmention is a simple way to automatically notify any URL when you link to it on your site. From the receivers perpective, it's a way to request notification when other sites link to it.
 
