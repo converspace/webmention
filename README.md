@@ -1,22 +1,40 @@
-# WebMention 0.1
+# Webmention 0.2 (RC1)
 
-A modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback).
+Webmention is a simple way to automatically notify any URL when you link to it on your site. From the receivers perpective, it's a way to request notification when other sites link to it.
 
+It’s a modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback) and other forms of [Linkback](http://en.wikipedia.org/wiki/Linkback).
 
 ### Versions
 
 #### Latest Version:
 http://webmention.org
 
+#### Previous Versions:
+* [version 0.1](https://github.com/converspace/webmention/blob/c9ab07947d00656237d9a5e626c78148da7166eb/README.md)
+
 
 ### Editors
-* Sandeep Shetty (sandeep.shetty@gmail.com)
+* [Sandeep Shetty](http://sandeep.io/) (sandeep.shetty@gmail.com)
 
 ### Contributors
-* Aaron Parecki (aaron@parecki.com)
+* [Aaron Parecki](http://aaronparecki.com/) (aaron@parecki.com)
+* [Barnaby Walters](http://waterpigs.co.uk/)
 
-### Copyright
-All contributions to this specification are released into the public domain.
+
+### License
+
+[CC0](http://creativecommons.org/choose/zero/)+[OWFa](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0)
+
+<a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors and contributors have waived all copyright and related or neighboring rights to this work. In addition, as of 27 September 2013, the editors and contributors have made this specification available under the <a rel="license" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.
+
+## Introduction
+
+Here's a typical webmention flow:
+
+1. Alice posts some interesting content on her site (which is setup to receive webmentions).
+2. Bob sees this content and comments about it on his site, linking back to Alice's original post.
+3. Using webmention, Bob's publishing software automatically notifies Alice's server that her post has been linked to along with the URL to Bob's post.
+4. Alice's publishing software verifies that Bob's post actually contains a link to her post and then includes this information on her site.
 
 
 ## Protocol Flow
@@ -24,16 +42,16 @@ All contributions to this specification are released into the public domain.
 ### Sender discovers Receiver Endpoint
 
 ```http
-GET /bob/post/2 HTTP/1.1
-Host: bobs.host
+GET /post-by-alice HTTP/1.1
+Host: alice.host
 ```
 ```http
 HTTP/1.1 200 OK
-Link: <http://bobs.host/webmention-endpoint>; rel="http://webmention.org/"
+Link: <http://alice.host/webmention-endpoint>; rel="webmention"
 
 <html>
 ...
-<link href="http://bobs.host/webmention-endpoint" rel="http://webmention.org/" />
+<link href="http://alice.host/webmention-endpoint" rel="webmention" />
 ...
 ```
 
@@ -42,144 +60,73 @@ Link: <http://bobs.host/webmention-endpoint>; rel="http://webmention.org/"
 
 ```http
 POST /webmention-endpoint HTTP/1.1
-Host: bobs.host
+Host: alice.host
 Content-Type: application/x-www-url-form-encoded
 
-source=http://alices.host/alice/post/42&
-target=http://bobs.host/bob/post/2
+source=http://bob.host/post-by-bob&
+target=http://alice.host/post-by-alice
 ```
 ```http
 HTTP/1.1 202 Accepted
+
+http://alice.host/webmentions/222
 ```
+
+`202 Accepted` is the recommended status code to return indicating that the request SHOULD be queued and processed asynchronously to prevent __DoS attacks__. The response body SHOULD include a URL that can be used to monitor the status of the request.
+
+If you choose to process the request and perform the [verification](#verification) step synchronously, you can respond with a `200 OK` status on success.
+
+See [Error Responses](#error-responses) for what to do when the webmention is not successful.
+
+
 
 ### Verification
-`bobs.host` SHOULD check that `target` is a valid resource belonging to it and then perform a `GET` on `source` and confirm that it actually links to `target`.
+1. The receiver SHOULD check that `target` is a valid resource belonging to it and that it accepts webmentions.
+2. The receiver SHOULD perform a HTTP `GET` request on `source` to confirm that it actually links to `target` (note that the receiver will need to check the `Content-Type` of the entity returned by `source` to make sure it is a textual response).
 
-**Note**: Might look for [rel="in-reply-to"](http://microformats.org/wiki/comment-brainstorming#hAtom_and_in-reply-to), or just the link itself somewhere on the page.
-
-## Response
-
-### Success
-
-If the WebMention request was successful, the server MUST reply with an `HTTP 202 Accepted` response code. The body of the response is left undefined, but is recommended to return a message indicating the pingback was successful and should respect the content-type of the `Accept` header. If no `Accept` header is present, an HTML success body may be returned. It is also valid to not send any body in the response.
-
-For example, typical responses may look like the following:
-
-#### HTML
-
-```http
-POST /webmention-endpoint HTTP/1.1
-Host: bobs.host
-Content-Type: application/x-www-url-form-encoded
-
-source=http://alices.host/alice/post/42&
-target=http://bobs.host/bob/post/2
-```
-```http
-HTTP/1.1 202 Accepted
-Content-Type: text/html
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>WebMention</title>
-  </head>
-  <body>
-	<p>WebMention was successful</p>
-  </body>
-</html>
-```
-
-#### JSON
-
-```http
-POST /webmention-endpoint HTTP/1.1
-Host: bobs.host
-Content-Type: application/x-www-url-form-encoded
-Accept: application/json
-
-source=http://alices.host/alice/post/42&
-target=http://bobs.host/bob/post/2
-```
-```http
-HTTP/1.1 202 Accepted
-Content-Type: application/json
-
-{
-  "result": "WebMention was successful"
-}
-```
+At this point the receiver can choose to publish information about this webmention along with any other data it picks up from `source`.
 
 
-### Errors
+#### Error Responses
 
-In addition to the standard HTTP status codes that may be returned for things like malformed requests, WebMention defines several error cases that must be handled.
+##### Sender Error
 
-All errors below MUST be returned with an `HTTP 400 Bad Request` response code.
+If the webmention was not successful because of something the sender did, you SHOULD return a `400 Bad Request` status code and MAY include a description of the error in the response body.
 
-* `source_not_found`: The source URI does not exist.
-* `target_not_found`: The target URI does not exist. This must only be used when an external GET on the target URI would result in an `HTTP 404` response.
-* `target_not_supported`: The specified target URI is not a WebMention-enabled resource. For example, on a blog, individual post pages may be WebMention-enabled but the home page may not.
-* `no_link_found`: The source URI does not contain a link to the target URI.
-* `already_registered`: The specified WebMention has already been registered.
+Possible sender related errors (from the [Pingback](http://www.hixie.ch/specs/pingback/pingback) specification):
+* Source URL not found.
+* Specified target URL not found.
+* Source URL does not contain a link to the target URL.
+* Specified target URL does not accept webmentions.
 
-The format of the error body should respect the content-type in the `Accept` header. If no `Accept` header is present, it is acceptable to return an HTML body with a description of the error.
+##### Receiver Error
 
-#### HTML
-
-```http
-POST /webmention-endpoint HTTP/1.1
-Host: bobs.host
-Content-Type: application/x-www-url-form-encoded
-
-source=http://alices.host/alice/post/42&
-target=http://bobs.host/bob/post/2
-```
-```http
-HTTP/1.1 400 Bad Request
-Content-Type: text/html
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>WebMention Error</title>
-  </head>
-  <body>
-    <h2>no_link_found</h2>
-    <p>The source URI does not contain a link to the target URI</p>
-  </body>
-</html>
-```
-
-#### JSON
-
-```http
-POST /webmention-endpoint HTTP/1.1
-Host: bobs.host
-Content-Type: application/x-www-url-form-encoded
-Accept: application/json
-
-source=http://alices.host/alice/post/42&
-target=http://bobs.host/bob/post/2
-```
-```http
-HTTP/1.1 400 Bad Request
-
-{
-  "error": "no_link_found",
-  "error_description": "The source URI does not contain a link to the target URI"
-}
-```
+If the webmention was not successful because of an error on the receivers server, it SHOULD return a `500 Internal Server Error` status code and MAY include a description of the error in the response body.
 
 
-
-## Preventing Spam and Abuse
-* The verification process SHOULD be queued to prevent DDOS attacks.
-* WebMention receivers SHOULD moderate WebMentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
-* Receivers MAY periodically re-verify that `source` links to `target`, and remove visible links if source no longer links to target.
-
+#### Updating existing webmentions
+If receiver had received a webmention in the past with the same `source` and `target` then,
+* If both the [verification](#verification) steps are successful, it SHOULD update any existing data it picked from `source` for the existing webmention.
+* If it received a 410 or 404 response on step 2 (performing a `GET` request on `source`) or does not find a link to `target` on `source`, it SHOULD delete the existing webmention.
 
 
+## Preventing Abuse
+* The verification process SHOULD be queued and processed asynchronously to prevent DDoS attacks.
+* Receivers SHOULD moderate Webmentions, and if a link is displayed back to the source, SHOULD link to `source` with `rel="nofollow"` to prevent spam.
+* Receivers MAY periodically re-verify webmentions and [update them](#updating-existing-webmentions).
+* If a receiver chooses to publish data it picks up from `source`, it should ensure that the data is encoded and/or filtered to prevent XSS and CSRF attacks.
+
+
+# Implementations
+See [IMPLEMENTATIONS](IMPLEMENTATIONS.md)
+
+# TODO
+* Prevention of DDoS 
+  * Malicious attacker could send webmentions to a lot of sites with Alice's site as `source` which will result in a DDoS on Alice's site.
+    * See [this discussion about Refback](http://krijnhoetmer.nl/irc-logs/whatwg/20111122#l-387). tl;dr: Hixie says "it's already pretty trivial to cause a server to get a lot of GETs, that's not a particularly interesting security issue imho".
+* backcompat with v0.1 by also supporting rel="http://webmention.org"?
+ 
+  
 ## See also
 
 * [Pingback](http://www.hixie.ch/specs/pingback/pingback)
@@ -188,5 +135,7 @@ HTTP/1.1 400 Bad Request
 * [Semantic Pingback](http://aksw.org/projects/semanticpingback)
 * [TalkBack](http://elie.im/publication/reclaiming-the-blogosphere-talkBack-a-secure-linkBack-protocol-for-weblogs#.UIWq_k4geoM)
 
+
 ## Let's collaborate
 Feel free to [file an issue](https://github.com/converspace/webmention/issues) if you have feedback/questions/suggestions.
+
