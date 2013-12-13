@@ -107,7 +107,7 @@ If the webmention was not successful because of an error on the receivers server
 #### Updating existing webmentions
 If receiver had received a webmention in the past with the same `source` and `target` then,
 * If both the [verification](#verification) steps are successful, it SHOULD update any existing data it picked from `source` for the existing webmention.
-* If it received a 410 or 404 response on step 2 (performing a `GET` request on `source`) or does not find a link to `target` on `source`, it SHOULD delete the existing webmention.
+* If it received a 410 on step 2 (performing a `GET` request on `source`) or does not find a link to `target` on `source`, it SHOULD delete the existing webmention.
 
 
 ## Preventing Abuse
