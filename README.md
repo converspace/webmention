@@ -52,9 +52,12 @@ Link: <http://alice.host/webmention-endpoint>; rel="webmention"
 <html>
 ...
 <link href="http://alice.host/webmention-endpoint" rel="webmention" />
+<!-- OR -->
+<a href="http://alice.host/webmention-endpoint" rel="webmention" />
 ...
 ```
 
+Receivers SHOULD use the `<link>` tag or HTTP Link header, but MAY instead use an `<a>` tag when necessary. For example, [WordPress.com](http://wordpress.com/) doesn't allow custom `<link>` tags or HTTP headers.
 
 ### Sender Notifies Receiver
 
