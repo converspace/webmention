@@ -57,7 +57,7 @@ Link: <http://alice.host/webmention-endpoint>; rel="webmention"
 ...
 ```
 
-Receivers SHOULD use the `<link>` tag or HTTP Link header, but MAY instead use an `<a>` tag when necessary. For example, [WordPress.com](http://wordpress.com/) doesn't allow custom `<link>` tags or HTTP headers.
+The webmention endpoint may be advertized in the HTTP Link header or a `<link>` or `<a>` element with `rel="webmention"`. If more than one of these is present, the HTTP Link header takes precedence, followed by the `<link>` element, and finally the `<a>` element. Clients MUST support all three options and fall back in this order.
 
 ### Sender Notifies Receiver
 
