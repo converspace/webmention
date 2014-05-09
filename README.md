@@ -50,14 +50,20 @@ HTTP/1.1 200 OK
 Link: <http://alice.host/webmention-endpoint>; rel="webmention"
 
 <html>
+<head>
 ...
 <link href="http://alice.host/webmention-endpoint" rel="webmention" />
-<!-- OR -->
+...
+</head>
+<body>
+....
 <a href="http://alice.host/webmention-endpoint" rel="webmention" />
 ...
+</body>
+</html>
 ```
 
-The webmention endpoint may be advertized in the HTTP Link header or a `<link>` or `<a>` element with `rel="webmention"`. If more than one of these is present, the HTTP Link header takes precedence, followed by the `<link>` element, and finally the `<a>` element. Clients MUST support all three options and fall back in this order.
+The webmention endpoint is advertized in the HTTP Link header or a `<link>` or `<a>` element with `rel="webmention"`. If more than one of these is present, the HTTP Link header takes precedence, followed by the `<link>` element, and finally the `<a>` element. Clients MUST support all three options and fall back in this order.
 
 ### Sender Notifies Receiver
 
