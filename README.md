@@ -4,10 +4,12 @@ Webmention is a simple way to automatically notify any URL when you link to it o
 
 It’s a modern alternative to [Pingback](http://www.hixie.ch/specs/pingback/pingback) and other forms of [Linkback](http://en.wikipedia.org/wiki/Linkback).
 
+Note that the latest, most up-to-date specification is located [on the IndieWebCamp wiki](http://indiewebcamp.com/webmention).
+
 ### Versions
 
 #### Latest Version:
-http://webmention.org
+http://indiewebcamp.com/webmention
 
 #### Previous Versions:
 * [version 0.1](https://github.com/converspace/webmention/blob/c9ab07947d00656237d9a5e626c78148da7166eb/README.md)
